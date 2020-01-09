@@ -81,23 +81,12 @@ resource "aws_eks_fargate_profile" "drb_test_drb_test" {
   selector {
     namespace = "drb-test"
   }
-}
-
-resource "aws_eks_fargate_profile" "drb_test_istio_system" {
-  cluster_name           = aws_eks_cluster.drb_test.name
-  fargate_profile_name   = "drb-test-istio-system"
-  pod_execution_role_arn = aws_iam_role.drb_test_eks_fargate_pod.arn
-  subnet_ids             = [
-    module.vpc.private_a,
-    module.vpc.private_b,
-    module.vpc.private_c,
-  ]
 
   selector {
     namespace = "istio-system"
   }
 
-  depends_on = [
-    aws_eks_fargate_profile.drb_test_drb_test,
-  ]
+  selector {
+    namespace = "kube-system"
+  }
 }

@@ -58,7 +58,7 @@ spec:
       createDemoSecret: true
     global:
       mtls:
-        auto: true
+        auto: false
         enabled: false
       proxy:
         accessLogFile: "/dev/stdout"
